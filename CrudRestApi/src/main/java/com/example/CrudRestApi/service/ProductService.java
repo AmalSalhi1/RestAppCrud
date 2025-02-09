@@ -6,6 +6,7 @@ import com.example.CrudRestApi.exception.ResourceNotFoundException;
 import com.example.CrudRestApi.model.Product;
 import com.example.CrudRestApi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +34,14 @@ public class ProductService {
         product.setPrice(productDTO.getPrice());
         return productRepository.save(product);
     }
-    public Product updateProduct(Long id, Product productDetails) {
+    @CacheEvict(value = "products", key = "#id")
+    public Product updateProduct(Long id, ProductDTO productDetails) {
         Product product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         product.setName(productDetails.getName());
         product.setPrice(productDetails.getPrice());
         return productRepository.save(product);
     }
-
+    @CacheEvict(value = "products", key = "#id")
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
