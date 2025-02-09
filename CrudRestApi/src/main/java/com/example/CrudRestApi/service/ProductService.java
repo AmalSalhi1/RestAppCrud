@@ -2,6 +2,7 @@ package com.example.CrudRestApi.service;
 
 
 import com.example.CrudRestApi.dto.ProductDTO;
+import com.example.CrudRestApi.exception.ResourceNotFoundException;
 import com.example.CrudRestApi.model.Product;
 import com.example.CrudRestApi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,10 @@ public class ProductService {
         product.setPrice(productDTO.getPrice());
         return productRepository.save(product);
     }
-
-    public Product updateProduct(Long id, ProductDTO productDTO) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
-        product.setName(productDTO.getName());
-        product.setPrice(productDTO.getPrice());
+    public Product updateProduct(Long id, Product productDetails) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        product.setName(productDetails.getName());
+        product.setPrice(productDetails.getPrice());
         return productRepository.save(product);
     }
 
