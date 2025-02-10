@@ -25,8 +25,10 @@ public class ProductService {
 
     @Cacheable("products")
     public Optional<Product> getProductById(Long id) {
+        System.out.println("Fetching product from database for ID: " + id);
         return productRepository.findById(id);
     }
+
 
     public Product createProduct(ProductDTO productDTO) {
         Product product = new Product();
@@ -41,6 +43,7 @@ public class ProductService {
         product.setPrice(productDetails.getPrice());
         return productRepository.save(product);
     }
+    
     @CacheEvict(value = "products", key = "#id")
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
