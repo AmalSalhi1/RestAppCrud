@@ -26,7 +26,7 @@ Le projet suit l'architecture MVC (Modèle-Vue-Contrôleur) :
 ### 1. Cloner le projet
 
 ```bash
-git clone <URL_DU_REPO_GITHUB>
+git clone https://github.com/AmalSalhi1/RestAppCrud.git
 cd CrudRestApi
 ```
 
@@ -91,7 +91,7 @@ git commit -m "Initial commit"
 ### 2. Lier le projet à un dépôt GitHub
 
 ```bash
-git remote add origin <URL_DU_REPO_GITHUB>
+git remote add origin https://github.com/AmalSalhi1/RestAppCrud.git
 git branch -M main
 git push -u origin main
 ```
