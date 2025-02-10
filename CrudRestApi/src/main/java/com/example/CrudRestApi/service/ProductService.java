@@ -1,6 +1,5 @@
 package com.example.CrudRestApi.service;
 
-
 import com.example.CrudRestApi.dto.ProductDTO;
 import com.example.CrudRestApi.exception.ResourceNotFoundException;
 import com.example.CrudRestApi.model.Product;
@@ -29,23 +28,29 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-
     public Product createProduct(ProductDTO productDTO) {
         Product product = new Product();
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
         return productRepository.save(product);
     }
+
     @CacheEvict(value = "products", key = "#id")
-    public Product updateProduct(Long id, ProductDTO productDetails) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-        product.setName(productDetails.getName());
-        product.setPrice(productDetails.getPrice());
+    public Product updateProduct(Long id, ProductDTO productDTO) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+
+        product.setName(productDTO.getName());
+        product.setPrice(productDTO.getPrice());
+
         return productRepository.save(product);
     }
-    
+
     @CacheEvict(value = "products", key = "#id")
     public void deleteProduct(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product not found");
+        }
         productRepository.deleteById(id);
     }
 }

@@ -1,17 +1,15 @@
 package com.example.CrudRestApi.dto;
 
-import lombok.Data;
-
-@Data
 public class ProductDTO {
 
-    private Long id;
-    public Long getId() {
-        return id;
-    }
+    private String name;
+    private double price;
 
-    public void setId(Long id) {
-        this.id = id;
+    public ProductDTO() {}
+
+    public ProductDTO(String name, double price) {
+        this.name = name;
+        this.price = price;
     }
 
     public String getName() {
@@ -22,8 +20,6 @@ public class ProductDTO {
         this.name = name;
     }
 
-    private String name;
-
     public double getPrice() {
         return price;
     }
@@ -31,6 +27,4 @@ public class ProductDTO {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    private double price;
 }
